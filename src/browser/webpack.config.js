@@ -4,8 +4,10 @@ const { CommonsChunkPlugin } = require('webpack').optimize;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
-const entryPoints = ['styles', 'vendor', 'main'];
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const { AotPlugin } = require('@ngtools/webpack');
+
+const entryPoints = ['styles', 'vendor', 'main'];
 
 const DIR = join(process.cwd(), 'src', 'browser');
 const APP_DIR = join(DIR, '..', 'app');
@@ -22,10 +24,23 @@ module.exports = {
     rules: [
       { test: /\.ts$/, include: [DIR], use: { loader: 'ts-loader' } },
       { test: /\.ts$/, include: [APP_DIR], use: { loader: '@ngtools/webpack' } },
-      { test: /\.html$/, include: [APP_DIR], use: { loader: 'raw-loader' } }
+      { test: /\.html$/, include: [APP_DIR], use: { loader: 'raw-loader' } },
+      {
+        test: /\.scss$/, include: [DIR], use: ExtractTextPlugin.extract({
+          use: ['css-loader', 'sass-loader']
+        })
+      },
+      {
+        test: /\.scss$/, include: [APP_DIR], use: [
+          'exports-loader?module.exports.toString()',
+          'css-loader',
+          'sass-loader'
+        ]
+      }
     ]
   },
   plugins: [
+    new ExtractTextPlugin('styles.[hash:6].css'),
     new AotPlugin({
       tsConfigPath: join(APP_DIR, 'tsconfig.json'),
       skipCodeGeneration: false

@@ -21,7 +21,14 @@ module.exports = {
     rules: [
       { test: /\.ts$/, include: [DIR], use: { loader: 'ts-loader' } },
       { test: /\.ts$/, include: [APP_DIR], use: { loader: '@ngtools/webpack' } },
-      { test: /\.html$/, include: [APP_DIR], use: { loader: 'raw-loader' } }
+      { test: /\.html$/, include: [APP_DIR], use: { loader: 'raw-loader' } },
+      {
+        test: /\.scss$/, include: [APP_DIR], use: [
+          'exports-loader?module.exports.toString()',
+          'css-loader',
+          'sass-loader'
+        ]
+      }
     ]
   },
   plugins: [
