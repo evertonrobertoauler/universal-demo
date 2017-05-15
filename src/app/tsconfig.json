@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "target": "es5",
+    "types": [],
+    "lib": [
+      "es2016",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "genDir": ".",
+    "entryModule": "./app.server.module#AppServerModule"
+  }
+}
