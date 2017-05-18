@@ -1,1 +1,4 @@
-<h1>Hello World</h1>
+<form [formGroup]="form" novalidate>
+  <h1>Hello {{ form.value.title }}</h1>
+  <input type="text" formControlName="title" />
+</form>

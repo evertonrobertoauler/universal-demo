@@ -1,6 +1,8 @@
 $color: red;
+$border-color: blue;
 
-h1 {
+form {
   color: $color;
-  border: 1px solid $color;
+  border: 1px solid $border-color;
+  padding: 15px;
 }
