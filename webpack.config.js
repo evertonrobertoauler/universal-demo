@@ -1,4 +1,4 @@
-const { ProgressPlugin, LoaderOptionsPlugin } = require('webpack');
+const { ProgressPlugin, LoaderOptionsPlugin, optimize } = require('webpack');
 const serverConfig = require('./src/server/webpack.config');
 const browserConfig = require('./src/browser/webpack.config');
 const ClosureCompilerPlugin = require('webpack-closure-compiler');
@@ -21,13 +21,19 @@ const optimizeConfig = {
       minimize: true,
       debug: false
     }),
-    new ClosureCompilerPlugin({
-      compiler: {
-        language_in: 'ECMASCRIPT5',
-        language_out: 'ECMASCRIPT5',
-        compilation_level: 'ADVANCED'
+    new optimize.UglifyJsPlugin({
+      beautify: false,
+      mangle: {
+        screw_ie8: true,
+        keep_fnames: false
       },
-      concurrency: 3,
+      compress: {
+        screw_ie8: true,
+        warnings: false
+      },
+      comments: false,
+      sourceMap: true,
+      warningsFilter: () => false
     })
   ]
 };
