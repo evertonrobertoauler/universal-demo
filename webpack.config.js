@@ -1,7 +1,6 @@
 const { ProgressPlugin, LoaderOptionsPlugin, optimize } = require('webpack');
 const serverConfig = require('./src/server/webpack.config');
 const browserConfig = require('./src/browser/webpack.config');
-const ClosureCompilerPlugin = require('webpack-closure-compiler');
 const _ = require('lodash');
 
 const commonConfig = {
